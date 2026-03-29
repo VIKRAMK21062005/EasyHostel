@@ -1,0 +1,135 @@
+# Project Title
+HostelEase – Hostel Essentials Ordering System
+
+# Overview
+HostelEase is a MERN stack web application that helps hostel students purchase their essential needs 
+(snacks, stationery, toiletries, etc.) easily from within the hostel. 
+Admins manage the product catalog and track orders, while students can browse and place orders online.
+
+# Tech Stack
+- MongoDB
+- Express.js
+- React.js
+- Node.js  
+
+# Libraries / Tools
+- Mongoose
+- JWT
+- bcryptjs
+- multer / cloudinary (for image upload)
+- dotenv
+- axios
+- cors
+- React Router DOM
+- Redux Toolkit (optional)
+
+# System Phases
+
+## Phase 1: Admin
+Responsibilities:
+- Manage products (add, edit, delete)
+- Track and update student orders
+- View order history and analytics
+
+Functionalities:
+1. Product Management
+   - Add new product (name, price, image)
+   - View all products
+   - Edit / Delete products
+
+2. Order Management
+   - View all orders
+   - Update order status (Pending → Processing → Delivered)
+   - Cancel orders
+   - View order history
+
+## Phase 2: Student
+Responsibilities:
+- Browse products
+- Place and manage orders
+- Track order status
+
+Functionalities:
+1. Authentication
+   - Register
+   - Login
+
+2. Product Browsing
+   - View all available products
+
+3. Order Placement
+   - Place order for desired product
+   - View order history
+   - Cancel order before it is processed
+
+# Models
+
+## 1. User Model
+- name: String
+- email: String
+- password: String
+- role: String (enum: ['student', 'admin'])
+
+## 2. Product Model
+- productName: String
+- price: Number
+- image: String
+
+## 3. Order Model
+- orderName: String
+- price: Number
+- userId: ObjectId (ref: 'User')
+- productId: ObjectId (ref: 'Product')
+- status: String (enum: ['Pending', 'Processing', 'Delivered', 'Cancelled'])
+- createdAt: Date (default: Date.now)
+
+# Controllers
+
+## User Controller
+- registerUser
+- loginUser
+
+## Product Controller
+- createProduct (admin only)
+- getAllProducts
+- updateProduct (admin)
+- deleteProduct (admin)
+
+## Order Controller
+- placeOrder (student)
+- getAllOrders (admin)
+- getUserOrders (student)
+- cancelOrder (student/admin)
+- updateOrderStatus (admin)
+
+# Routes
+
+## Auth Routes
+POST   /api/auth/register
+POST   /api/auth/login
+
+## Product Routes
+POST   /api/products              -> Create product (admin)
+GET    /api/products              -> Get all products
+PUT    /api/products/:id          -> Update product (admin)
+DELETE /api/products/:id          -> Delete product (admin)
+
+## Order Routes
+POST   /api/orders                -> Place order (student)
+GET    /api/orders                -> Get all orders (admin)
+GET    /api/orders/user/:id       -> Get user-specific orders (student)
+PATCH  /api/orders/:id/status     -> Update order status (admin)
+DELETE /api/orders/:id            -> Cancel order (student/admin)
+
+# Additional Features (Future Enhancements)
+- Notifications for order updates
+- Search & filter products
+- Product categories (Snacks, Stationery, Toiletries)
+- Inventory management (track stock)
+- Admin dashboard with order analytics
+- Payment gateway integration (future scope)
+
+# Outcome
+A complete hostel-based MERN web application 
+that streamlines the purchase of essential items for students 
+and simplifies order management for administrators.
